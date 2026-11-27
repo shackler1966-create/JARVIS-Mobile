@@ -1,27 +1,16 @@
-بناء APK من الهاتف فقط عبر GitHub Actions وTermux
+طريقة البناء من الهاتف عبر GitHub Actions:
 
-1) أنشئ مستودعاً فارغاً على GitHub باسم JARVIS-Mobile، واجعله Private أو Public، ولا تضف README أو License أو .gitignore عند الإنشاء.
-2) ثبّت Termux من F-Droid الرسمي أو GitHub الرسمي.
-3) افتح Termux ونفّذ:
-   termux-setup-storage
-   pkg update -y && pkg install git unzip -y
-4) ضع ملف ZIP في مجلد Download، ثم نفّذ:
-   cd ~/storage/downloads
-   unzip JARVIS_NATIVE_ANDROID_SOURCE_WITH_CI.zip
-   cd JARVIS_Native_Android
-5) نفّذ الأوامر التالية، مع استبدال USERNAME باسم حسابك واسم المستودع:
-   git init
+1) افتح مستودع JARVIS-Mobile في GitHub.
+2) ارفع واستبدل ملفات المشروع بهذه النسخة (مجلد app وملفات Gradle وملفات .github).
+3) من تطبيق Termux داخل مجلد المشروع نفّذ:
    git add .
-   git commit -m "Add JARVIS Android app"
-   git branch -M main
-   git remote add origin https://github.com/USERNAME/JARVIS-Mobile.git
-   git push -u origin main
-6) عند طلب كلمة المرور من GitHub، استخدم Personal Access Token بدلاً من كلمة مرور الحساب. أنشئه من GitHub Settings > Developer settings > Personal access tokens، وامنحه صلاحية Contents: Read and write (أو repo إذا استخدمت classic). لا ترسل الرمز لأي شخص ولا تضعه في المحادثة.
-7) افتح المستودع على GitHub ثم Actions. افتح مهمة Build JARVIS APK وانتظر نجاحها.
-8) افتح تشغيل المهمة الناجح، ثم نزّل Artifact باسم JARVIS-debug-APK. فك ضغط الملف وستجد app-debug.apk.
-9) افتح APK على هاتفك واسمح بالتثبيت من هذا المصدر عند طلب Android.
+   git commit -m "JARVIS no Picovoice tap to talk"
+   git push
+4) في GitHub افتح تبويب Actions.
+5) افتح أحدث تشغيل باسم Build JARVIS APK.
+6) انتظر حتى يظهر Success.
+7) انزل إلى Artifacts واضغط تنزيل JARVIS-debug-APK.
+8) افتح ZIP الذي تم تنزيله واستخرج app-debug.apk.
+9) اضغط APK لتثبيته، واسمح بالتثبيت من هذا المصدر إذا طلب Android ذلك.
 
-ملاحظات:
-- GitHub Actions يبني نسخة Debug من المشروع. نجاح البناء غير مضمون قبل اختبار المشروع؛ إذا فشل، افتح سجل Actions وأرسل نص الخطأ فقط (لا ترسل أي مفاتيح أو رموز).
-- مفاتيح Picovoice والذكاء الاصطناعي تُدخل داخل التطبيق لاحقاً. لا تضعها في مستودع GitHub.
-- التطبيق يتطلب أذونات الميكروفون والإشعارات، وقد تقيد بعض هواتف Android تشغيل الخدمة بالخلفية.
+مهم: لا تكتب كلمة مرور GitHub عند طلب كلمة المرور. استخدم GitHub Personal Access Token أو تسجيل الدخول عبر GitHub CLI. لا تشارك الرمز مع أحد.
